@@ -1,9 +1,0 @@
-# ninja log v6
-17	764	7866069007184152	TestMain_autogen/timestamp	e91c821ef2f11b0a
-17	764	7866069007184152	TestMain_autogen/mocs_compilation.cpp	e91c821ef2f11b0a
-17	764	7866069007184152	E:/qt/ReMyCloud/QKTest/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/TestMain_autogen/timestamp	e91c821ef2f11b0a
-17	764	7866069007184152	E:/qt/ReMyCloud/QKTest/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/TestMain_autogen/mocs_compilation.cpp	e91c821ef2f11b0a
-796	2429	7866069008566497	CMakeFiles/TestMain.dir/setup.cpp.obj	68d1a8aed3d543c
-771	2542	7866069008322894	CMakeFiles/TestMain.dir/TestMain_autogen/mocs_compilation.cpp.obj	a883b752d71a6430
-784	3020	7866069008445626	CMakeFiles/TestMain.dir/main.cpp.obj	39cf0c724b45314e
-3021	3150	7866069030811691	TestMain.exe	632d5e64ecfbd4e8

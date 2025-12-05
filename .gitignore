@@ -1,7 +1,10 @@
 <<<<<<< HEAD
 # This file is used to ignore files which are generated
 # ----------------------------------------------------------------------------
-
+*/build*/*
+*build/*
+*/build/*
+build/
 *~
 *.autosave
 *.a
@@ -80,12 +83,7 @@ CMakeLists.txt.user*
 .pch/
 .rcc/
 .uic/
-*/build*/*
-/build/*
-*/build/*
-*build*
-build/
-build-*/
+
 =======
 # Prerequisites
 *.d
