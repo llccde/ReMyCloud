@@ -123,4 +123,7 @@ CMakeLists.txt.user*
 
 # debug information files
 *.dwo
+
+
+QKTest/build/
 >>>>>>> 8d5ab5b79c06254cebe77bf9f6344413736feac6
