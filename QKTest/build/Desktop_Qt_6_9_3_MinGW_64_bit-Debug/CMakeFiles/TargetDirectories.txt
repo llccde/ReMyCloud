@@ -1,0 +1,7 @@
+E:/qt/ReMyCloud/QKTest/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/TestMain_qmlfiles.dir
+E:/qt/ReMyCloud/QKTest/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/TestMain.dir
+E:/qt/ReMyCloud/QKTest/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/test.dir
+E:/qt/ReMyCloud/QKTest/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/edit_cache.dir
+E:/qt/ReMyCloud/QKTest/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/rebuild_cache.dir
+E:/qt/ReMyCloud/QKTest/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/TestMain_autogen_timestamp_deps.dir
+E:/qt/ReMyCloud/QKTest/build/Desktop_Qt_6_9_3_MinGW_64_bit-Debug/CMakeFiles/TestMain_autogen.dir

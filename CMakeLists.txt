@@ -6,6 +6,8 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 REQUIRED COMPONENTS Quick)
 
+include_directories(./include)
+
 qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(appReMyCloud
@@ -39,5 +41,17 @@ install(TARGETS appReMyCloud
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+
+
+
+
 add_subdirectory(QKTest)
-add_subdirectory(Test)
+add_subdirectory(CppTest)
+enable_testing()
+if(TARGET QKTest)
+    add_test(NAME QKTest COMMAND QKTest)
+endif()
+
+if(TARGET CppTest)
+    add_test(NAME CppTest COMMAND CppTest)
+endif()
