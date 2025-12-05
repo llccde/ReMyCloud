@@ -81,6 +81,7 @@ CMakeLists.txt.user*
 .rcc/
 .uic/
 */build*/
+/build*/
 =======
 # Prerequisites
 *.d
