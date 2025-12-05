@@ -1,0 +1,6 @@
+module ReMyCloud
+typeinfo appReMyCloud.qmltypes
+prefer :/qt/qml/ReMyCloud/
+Main 254.0 Main.qml
+depends QtQuick
+

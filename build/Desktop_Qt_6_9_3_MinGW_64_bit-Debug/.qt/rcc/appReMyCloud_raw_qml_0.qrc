@@ -1,0 +1,6 @@
+<RCC>
+  <qresource prefix="/qt/qml/ReMyCloud/">
+    <file alias="Main.qml">D:/Qt/ReMyCloud/Main.qml</file>
+  </qresource>
+</RCC>
+
