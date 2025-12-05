@@ -1,0 +1,27 @@
+import QtQuick 2.15
+import QtTest 1.0
+
+TestCase {
+    name: "TestMain"
+
+    function initTestCase() {
+        // code to be executed before the first test function
+    }
+
+    function init() {
+        // code to be executed before each test function
+    }
+
+    function cleanupTestCase() {
+        // code to be executed after the last test function
+    }
+
+    function cleanup() {
+        // code to be executed after each test function
+    }
+
+    function test_case1() {
+        compare(1 + 1, 2, "sanity check");
+        verify(true);
+    }
+}

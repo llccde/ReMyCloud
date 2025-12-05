@@ -39,3 +39,5 @@ install(TARGETS appReMyCloud
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
 )
+add_subdirectory(QKTest)
+add_subdirectory(Test)
