@@ -18,6 +18,8 @@ qt_add_qml_module(appReMyCloud
     URI ReMyCloud
     QML_FILES
         Main.qml
+        SOURCES include/init.h
+        SOURCES include/global.h
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
