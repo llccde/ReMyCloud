@@ -1,33 +1,51 @@
 #ifndef LOCALFILESERVICE_H
 #define LOCALFILESERVICE_H
-#include<QFile>
+
+#include "ILocalFileService.h"
+#include <QFile>
+#include <QReadWriteLock>
+#include <memory>
 #include<QMap>
-#include<QtCore>
-#include<QReadWriteLock>
-using fileID = long long;
-
-struct file_res{
-    QReadWriteLock lock;
-    QFile file;
-};
-
-class LocalFileService
+class LocalFileService : public ILocalFileService
 {
-
-    using file = std::shared_ptr<file_res>;
-    QMap<fileID,file> opendFiles = QMap<fileID,file>();
-
+private:
+    struct file_res 
+    {
+        QFile file;
+        QString path;
+        QReadWriteLock lock;
+        explicit file_res(const QString& filePath) : file(filePath), path(filePath) {}
+    };
+    
+    using file_ptr = std::shared_ptr<file_res>;
+    
+    // 私有实现
+    class Lfs_impl;
+    std::unique_ptr<Lfs_impl> impl_lfs;
+    
+    QMap<fileID, file_ptr> opendFiles;
+    fileID count;
+    mutable QReadWriteLock mapLock;  // 保护opendFiles的访问
+    
 public:
-    static fileID count;
+    explicit LocalFileService();
+    virtual ~LocalFileService();
+    
+    // 实现接口方法
+    virtual bool haveFile(fileID id) const override;
+    virtual fileID openFile(const QString& path) override;
+    virtual bool closeFile(fileID id) override;
+    virtual QString getFileContent(fileID id,QString charset) override;
+    virtual bool writeFile(fileID id, const QString& content) override;
+    virtual bool delFile(fileID id) override;
+    virtual int getOpenFileCount() const override;
+    
 
-    LocalFileService();
-    fileID openFile(QString path);
-    bool closeFile(fileID);
-    QString getFileContent(fileID);
-    bool haveFile();
-    bool writeFile(fileID id,QString content);
-
+    
+private:
+    // 辅助方法
+    fileID generateNewId();
+    bool isValidFileId(fileID id) const;
 };
 
-fileID LocalFileService::count=0;
 #endif // LOCALFILESERVICE_H

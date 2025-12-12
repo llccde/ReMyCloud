@@ -1,7 +1,7 @@
 #include <QTest>
-
-// add necessary includes here
-
+#include<Backend.h>
+#include"LocalFileService.h"
+#include"LFS_test.cpp"
 class CppTestMain : public QObject
 {
     Q_OBJECT
@@ -47,3 +47,4 @@ void CppTestMain::test_case1() {}
 QTEST_APPLESS_MAIN(CppTestMain)
 
 #include "tst_cpptestmain.moc"
+
