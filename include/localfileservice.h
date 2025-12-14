@@ -28,8 +28,10 @@ private:
 public:
     explicit LocalFileService();
     virtual ~LocalFileService();
-    
+     
     // 实现接口方法
+    fileID creatFile(QString path, bool withOpen) override;
+    bool renameFile(fileID id) override;
     virtual bool haveFile(fileID id) const override;
     virtual fileID openFile(const QString& path) override;
     virtual bool closeFile(fileID id) override;
@@ -45,5 +47,7 @@ private:
     fileID generateNewId();
     bool isValidFileId(fileID id) const;
 };
+
+
 
 #endif // LOCALFILESERVICE_H

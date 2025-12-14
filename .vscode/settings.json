@@ -1,3 +1,9 @@
 {
-    
+     "clangd.arguments": [
+        "--background-index",
+        "--clang-tidy",
+        "--completion-style=detailed",
+        "--function-arg-placeholders=true",
+        "--header-insertion=iwyu"
+    ]
 }

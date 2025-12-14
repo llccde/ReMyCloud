@@ -1,4 +1,5 @@
 #include "LocalFileService.h"
+#include "ILocalFileService.h"
 #include <QDebug>
 
 #include <QReadLocker>
@@ -18,8 +19,10 @@ LocalFileService::LocalFileService()
 {
 }
 
+
 LocalFileService::~LocalFileService()
 {
+
     // 清理所有打开的文件
     QWriteLocker locker(&mapLock);
     for (auto it = opendFiles.begin(); it != opendFiles.end(); ++it) {
@@ -29,6 +32,17 @@ LocalFileService::~LocalFileService()
     }
     opendFiles.clear();
 }
+
+fileID LocalFileService::creatFile(QString path, bool withOpen)
+{
+    return -1;
+}
+
+bool LocalFileService::renameFile(fileID id)
+{
+    
+}
+
 
 bool LocalFileService::haveFile(fileID id) const
 {

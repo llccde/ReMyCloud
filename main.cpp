@@ -1,6 +1,6 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-
+#include <vector>
 int main(int argc, char *argv[])
 {
 

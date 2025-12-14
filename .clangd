@@ -1,0 +1,4 @@
+CompileFlags:
+  Add: [-std=c++17, -I/path/to/includes]
+  # 如果使用-unity builds，可能需要添加：
+  # Add: [-include, "your_unity_file.cpp"]
