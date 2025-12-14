@@ -1,50 +1,24 @@
 #include <QTest>
 #include<Backend.h>
 #include"LocalFileService.h"
-#include"LFS_test.cpp"
-class CppTestMain : public QObject
+#include"LFS_test.h"
+#include"iostream"
+#include <QDebug>
+int main(int argc, char *argv[])
 {
-    Q_OBJECT
+    QCoreApplication app(argc, argv);
+    qDebug() << "Hello, Console!"; // 输出到控制台
+    // 创建具体的文件服务实例
+    LocalFileService service;
 
-public:
-    CppTestMain();
-    ~CppTestMain();
+    // 创建测试类实例并设置服务
+    LFS_test test;
+    test.setImpl(&service);
 
-private slots:
-    void initTestCase();
-    void init();
-    void cleanupTestCase();
-    void cleanup();
-    void test_case1();
-};
+    // 运行所有测试
+    int result = QTest::qExec(&test, argc, argv);
+    qDebug() << "Hello, Console!"; // 输出到控制台
 
-CppTestMain::CppTestMain() {}
-
-CppTestMain::~CppTestMain() {}
-
-void CppTestMain::initTestCase()
-{
-    // code to be executed before the first test function
+    return result;
 }
-
-void CppTestMain::init()
-{
-    // code to be executed before each test function
-}
-
-void CppTestMain::cleanupTestCase()
-{
-    // code to be executed after the last test function
-}
-
-void CppTestMain::cleanup()
-{
-    // code to be executed after each test function
-}
-
-void CppTestMain::test_case1() {}
-
-QTEST_APPLESS_MAIN(CppTestMain)
-
-#include "tst_cpptestmain.moc"
 

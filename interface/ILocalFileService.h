@@ -23,6 +23,9 @@ public:
      */
     virtual bool haveFile(fileID id) const = 0;
     
+    virtual fileID creatFile(QString path,bool withOpen) = 0;
+
+    virtual bool renameFile(fileID id) = 0;
     /**
      * @brief 打开文件
      * @param path 文件路径
@@ -43,7 +46,7 @@ public:
      * @param charset 字符编码（如"UTF-8"、"GBK"等）
      * @return 文件内容字符串，读取失败返回空字符串
      */
-    virtual QString getFileContent(fileID id, QString charset) = 0;
+    virtual QString getFileContent(fileID id, QString charset = "UTF-8") = 0;
     
     /**
      * @brief 写入内容到文件
@@ -65,6 +68,8 @@ public:
      * @return 打开的文件数量
      */
     virtual int getOpenFileCount() const = 0;
+
+    virtual int closeAll() = 0;
 };
 
 #endif // ILOCALFILESERVICE_H

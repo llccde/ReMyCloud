@@ -4,7 +4,9 @@ project(ReMyCloud VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(Qt6 REQUIRED COMPONENTS Quick)
+find_package(Qt6
+    REQUIRED COMPONENTS Quick)
+find_package(Qt6 REQUIRED COMPONENTS Core5Compat)
 
 include_directories(./include)
 include_directories(./interface)
@@ -35,7 +37,7 @@ set_target_properties(appReMyCloud PROPERTIES
 target_link_libraries(appReMyCloud
     PRIVATE Qt6::Quick
 )
-
+target_link_libraries(appReMyCloud PRIVATE Qt6::Core5Compat)
 include(GNUInstallDirs)
 install(TARGETS appReMyCloud
     BUNDLE DESTINATION .

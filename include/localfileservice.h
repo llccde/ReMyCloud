@@ -13,7 +13,6 @@ private:
     {
         QFile file;
         QString path;
-        QReadWriteLock lock;
         explicit file_res(const QString& filePath) : file(filePath), path(filePath) {}
     };
     
@@ -22,9 +21,8 @@ private:
     // 私有实现
     class Lfs_impl;
     std::unique_ptr<Lfs_impl> impl_lfs;
-    
+    int count = 0;
     QMap<fileID, file_ptr> opendFiles;
-    fileID count;
     mutable QReadWriteLock mapLock;  // 保护opendFiles的访问
     
 public:
@@ -39,7 +37,7 @@ public:
     virtual bool writeFile(fileID id, const QString& content) override;
     virtual bool delFile(fileID id) override;
     virtual int getOpenFileCount() const override;
-    
+    virtual int closeAll()override;
 
     
 private:
