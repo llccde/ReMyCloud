@@ -38,11 +38,6 @@ fileID LocalFileService::creatFile(QString path, bool withOpen)
     return -1;
 }
 
-bool LocalFileService::renameFile(fileID id)
-{
-    
-}
-
 
 bool LocalFileService::haveFile(fileID id) const
 {
