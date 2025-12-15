@@ -1,7 +1,7 @@
-#ifndef __CLOUDLFILESERVICE_H__
-#define __CLOUDLFILESERVICE_H__
+#ifndef __I_CLOUDLFILESERVICE_H__
+#define __I_CLOUDLFILESERVICE_H__
 #include "QString"
-class CloudFileService
+class I_CloudFileService
 {
     const QString serviceHost = "127.0.0.1";
     const int servicePort = 1234;
@@ -18,8 +18,8 @@ class CloudFileService
     
 
 public:
-    CloudFileService();
-    ~CloudFileService();
+    I_CloudFileService();
+    ~I_CloudFileService();
 };
 
-#endif // __CLOUDLFILESERVICE_H__
+#endif // __I_CLOUDLFILESERVICE_H__

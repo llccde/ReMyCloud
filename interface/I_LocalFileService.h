@@ -1,5 +1,5 @@
-#ifndef ILOCALFILESERVICE_H
-#define ILOCALFILESERVICE_H
+#ifndef I_LOCALFILESERVICE_H
+#define I_LOCALFILESERVICE_H
 
 #include <QString>
 
@@ -11,10 +11,10 @@ using fileID = int;
  * 
  * 该接口定义了本地文件操作的基本功能，包括打开、关闭、读取、写入和删除文件等操作。
  */
-class ILocalFileService
+class I_LocalFileService
 {
 public:
-    virtual ~ILocalFileService() = default;
+    virtual ~I_LocalFileService() = default;
     
     /**
      * @brief 检查文件是否已打开

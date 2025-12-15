@@ -1,12 +1,12 @@
 #ifndef LOCALFILESERVICE_H
 #define LOCALFILESERVICE_H
 
-#include "ILocalFileService.h"
+#include "I_LocalFileService.h"
 #include <QFile>
 #include <QReadWriteLock>
 #include <memory>
 #include<QMap>
-class LocalFileService : public ILocalFileService
+class LocalFileService : public I_LocalFileService
 {
 private:
     struct file_res 

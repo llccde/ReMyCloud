@@ -4,17 +4,17 @@
 #include <QObject>
 #include <QString>
 #include <QTemporaryDir>
-#include "ILocalFileService.h"
+#include "I_LocalFileService.h"
 #include <QStringDecoder>
 #include <QStringEncoder>
 class LFS_test : public QObject
 {
     Q_OBJECT
-    ILocalFileService* fileService = nullptr;
+    I_LocalFileService* fileService = nullptr;
 public:
     LFS_test();
     ~LFS_test();
-    void setImpl(ILocalFileService* impl);
+    void setImpl(I_LocalFileService* impl);
 private slots:
     void initTestCase();
     void cleanupTestCase();

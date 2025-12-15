@@ -5,7 +5,7 @@
 #include <QByteArray>
 #include <QtTest/qtestcase.h>
 
-void LFS_test::setImpl(ILocalFileService* impl){
+void LFS_test::setImpl(I_LocalFileService* impl){
     this->fileService = impl;
 }
 LFS_test::LFS_test()
