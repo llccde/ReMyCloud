@@ -9,6 +9,10 @@ find_package(Qt6
 find_package(Qt6 REQUIRED COMPONENTS Core5Compat)
 
 include_directories(./include)
+include_directories(./include/service)
+include_directories(./include/application)
+include_directories(./interface/service)
+include_directories(./interface/application)
 include_directories(./interface)
 
 qt_standard_project_setup(REQUIRES 6.8)

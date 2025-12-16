@@ -2,10 +2,61 @@
 #define I_LOCALFILESERVICE_H
 
 #include <QString>
-
+#include <_mingw_stat64.h>
+#include <qcontainerfwd.h>
+#include <qmutex.h>
+#include <qtestcase.h>
+#include "QMutex"
 // 文件ID类型定义
-using fileID = int;
-
+class IDMaker;
+struct fileID {
+    friend class IDMaker;
+    private:
+        long long int id;
+    public:
+    bool isValid() {
+        return id > 0;
+    }
+    inline bool operator==(const fileID& other) const {
+        return id == other.id;
+    }
+    inline bool operator!=(const fileID& other) const {
+        return id != other.id;
+    }
+    inline bool operator<(const fileID& other) const {
+        return id < other.id;
+    }
+    inline QString toString() const {
+        return QString::number(id);
+    }
+    inline fileID(QString str){
+        id = str.toLongLong();
+    }
+    inline fileID():id(-1){
+    }
+    [[deprecated("Only use on test")]]
+    static fileID fromLongLong(long long int value) {
+        fileID fid;
+        fid.id = value;
+        return fid;
+    }
+};
+class IDMaker {
+    QMutex mutex;
+    long long int current_id = 0;
+public:
+    inline fileID generateID() {
+        fileID fid;
+        QMutexLocker locker(&mutex);
+        fid.id = ++current_id;
+        return fid;
+    }
+    inline fileID getUnvalidID() {
+        fileID fid;
+        fid.id = -1;
+        return fid;
+    }
+};
 /**
  * @brief 本地文件服务接口
  * 
@@ -22,14 +73,13 @@ public:
      * @return 如果文件存在且已打开则返回true，否则返回false
      */
     virtual bool haveFile(fileID id) const = 0;
-    
-    virtual fileID creatFile(QString path,bool withOpen) = 0;
-
-    virtual bool renameFile(fileID id) = 0;
+    virtual bool swapFile(fileID id1, fileID id2,bool file2CanBeNull = false) = 0;
+    virtual bool creatFile(QString path) = 0;
+    virtual fileID justGenerateID() = 0;
     /**
      * @brief 打开文件
      * @param path 文件路径
-     * @return 成功打开返回文件ID，失败返回-1
+     * @return 成功打开返回文件ID，失败返回-1,打开两次,返回相同ID
      */
     virtual fileID openFile(const QString& path) = 0;
     

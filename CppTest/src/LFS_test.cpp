@@ -1,6 +1,7 @@
 #include <QFile>
 #include <QTextStream>
 #include"LFS_test.h"
+#include "I_LocalFileService.h"
 #include <QDebug>
 #include <QByteArray>
 #include <QtTest/qtestcase.h>
@@ -82,7 +83,7 @@ void LFS_test::testOpenFile()
 
     // 测试打开文件
     fileID id = fileService->openFile(testFilePath);
-    QVERIFY(id != -1);
+    QVERIFY(id.isValid());
     QVERIFY(fileService->haveFile(id));
     QCOMPARE(fileService->getOpenFileCount(), 1);
 
@@ -94,7 +95,7 @@ void LFS_test::testOpenNonExistentFile()
 {
     QString nonExistentPath = tempDir.path() + "/non_existent.txt";
     fileID id = fileService->openFile(nonExistentPath);
-    QCOMPARE(id, -1);
+    QVERIFY(id.isValid() == false);
     QCOMPARE(fileService->getOpenFileCount(), 0);
 }
 
@@ -103,7 +104,7 @@ void LFS_test::testOpenFileTwice()
     createTestFile(testFilePath, "Test content");
 
     fileID id1 = fileService->openFile(testFilePath);
-    QVERIFY(id1 != -1);
+    QVERIFY(id1.isValid());
 
     // 第二次打开应该相同的的ID（或者根据实现可能返回-1）
     fileID id2 = fileService->openFile(testFilePath);
@@ -127,7 +128,7 @@ void LFS_test::testCloseFile()
     createTestFile(testFilePath, "Test content");
 
     fileID id = fileService->openFile(testFilePath);
-    QVERIFY(id != -1);
+    QVERIFY(id.isValid());
     QCOMPARE(fileService->getOpenFileCount(), 1);
 
     bool result = fileService->closeFile(id);
@@ -138,7 +139,7 @@ void LFS_test::testCloseFile()
 
 void LFS_test::testCloseNonExistentFile()
 {
-    bool result = fileService->closeFile(999); // 不存在的ID
+    bool result = fileService->closeFile(fileID::fromLongLong(999)); // 不存在的ID
     QVERIFY(!result);
 }
 
@@ -189,7 +190,7 @@ void LFS_test::testGetFileContentWithCharset()
 
 void LFS_test::testGetFileContentInvalidId()
 {
-    QString content = fileService->getFileContent(999, "UTF-8");
+    QString content = fileService->getFileContent(fileID::fromLongLong(999), "UTF-8");
     QVERIFY(content.isEmpty());
 }
 
@@ -215,7 +216,7 @@ void LFS_test::testWriteFile()
 
 void LFS_test::testWriteFileInvalidId()
 {
-    bool result = fileService->writeFile(999, "Test content");
+    bool result = fileService->writeFile(fileID::fromLongLong(999), "Test content");
     QVERIFY(!result);
 }
 
@@ -253,7 +254,7 @@ void LFS_test::testDeleteFile()
 
     // 先打开文件
     fileID id = fileService->openFile(testFilePath);
-    QVERIFY(id != -1);
+    QVERIFY(id.isValid());
 
     // 关闭文件
     fileService->closeFile(id);
@@ -273,18 +274,18 @@ void LFS_test::testDeleteOpenFile()
     createTestFile(testFilePath, "Content");
 
     fileID id = fileService->openFile(testFilePath);
-    QVERIFY(id != -1);
+    QVERIFY(id.isValid());
 
     // 尝试删除打开的文件
     bool result = fileService->delFile(id);
     // 根据实现，可能成功或失败
-
+    QVERIFY(result);
     fileService->closeFile(id);
 }
 
 void LFS_test::testDeleteNonExistentFile()
 {
-    bool result = fileService->delFile(999);
+    bool result = fileService->delFile(fileID::fromLongLong(999)); // 不存在的ID
     QVERIFY(!result);
 }
 
@@ -321,8 +322,8 @@ void LFS_test::testMultipleFilesOperations()
     fileID id1 = fileService->openFile(file1Path);
     fileID id2 = fileService->openFile(file2Path);
 
-    QVERIFY(id1 != -1);
-    QVERIFY(id2 != -1);
+    QVERIFY(id1.isValid());
+    QVERIFY(id2.isValid());
     QVERIFY(id1 != id2);
     QCOMPARE(fileService->getOpenFileCount(), 2);
 
@@ -358,7 +359,7 @@ void LFS_test::testEmptyFileOperations()
     createTestFile(testFilePath, "");
 
     fileID id = fileService->openFile(testFilePath);
-    QVERIFY(id != -1);
+    QVERIFY(id.isValid());
 
     QString content = fileService->getFileContent(id, "UTF-8");
     QVERIFY(content.isEmpty());
@@ -385,7 +386,7 @@ void LFS_test::testLargeFileOperations()
     createTestFile(testFilePath, largeContent.toUtf8());
 
     fileID id = fileService->openFile(testFilePath);
-    QVERIFY(id != -1);
+    QVERIFY(id.isValid());
 
     QString content = fileService->getFileContent(id, "UTF-8");
     QVERIFY(!content.isEmpty());

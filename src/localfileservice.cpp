@@ -4,7 +4,9 @@
 
 #include <QReadLocker>
 #include <qfileinfo.h>
+#include <qlogging.h>
 // 私有实现类的定义
+
 class LocalFileService::Lfs_impl
 {
 public:
@@ -32,11 +34,54 @@ LocalFileService::~LocalFileService()
     }
     opendFiles.clear();
 }
-
-fileID LocalFileService::creatFile(QString path, bool withOpen)
+fileID LocalFileService::justGenerateID()
 {
-    return -1;
+    return idMaker.generateID();
 }
+bool LocalFileService::creatFile(QString path)
+{
+    QFile file(path);
+    if (file.exists()) {
+        return false; // 文件已存在
+    }
+    return file.open(QIODevice::WriteOnly);
+}
+
+bool LocalFileService::swapFile(fileID id1, fileID id2, bool file2CanBeNull)
+{
+    if(haveFile(id1)==false){
+        return false;
+    }
+    if (haveFile(id2)){
+        QWriteLocker locker(&mapLock);
+        file_ptr fileRes1 = opendFiles.value(id1);
+        file_ptr fileRes2 = opendFiles.value(id2);
+        if (!fileRes1 || !fileRes2) {
+            return false;
+        }
+        opendFiles[id1] = fileRes2;
+        opendFiles[id2] = fileRes1;
+        return true;
+    }
+    else {
+        if(file2CanBeNull){
+            QWriteLocker locker(&mapLock);
+            file_ptr fileRes1 = opendFiles.value(id1);
+            if (!fileRes1) {
+                return false;
+            }
+            opendFiles[id2] = fileRes1;
+            opendFiles.remove(id1);
+            return true;
+        }else {
+            qWarning() << "Swap file not implemented yet.";
+            return false;
+        }
+        
+    }
+
+}
+
 
 
 bool LocalFileService::haveFile(fileID id) const
@@ -49,20 +94,20 @@ fileID LocalFileService::openFile(const QString& path)
 {
     if (path.isEmpty()) {
         qWarning() << "Empty file path provided";
-        return -1;
+        return idMaker.getUnvalidID();
     }
 
     // 规范化路径并检查文件存在
     QFileInfo fileInfo(path);
     if (!fileInfo.exists() || !fileInfo.isFile()) {
         qWarning() << "File does not exist or is not a regular file:" << path;
-        return -1;
+        return idMaker.getUnvalidID();
     }
 
     QString canonicalPath = fileInfo.canonicalFilePath();
     if (canonicalPath.isEmpty()) {
         qWarning() << "Failed to get canonical path for:" << path;
-        return -1;
+        return idMaker.getUnvalidID();
     }
 
    {
@@ -84,19 +129,14 @@ fileID LocalFileService::openFile(const QString& path)
     if (!fileRes->file.open(QIODevice::ReadWrite)) {  // 移除了Text模式
         qWarning() << "Failed to open file:" << canonicalPath
                    << "Error:" << fileRes->file.errorString();
-        return -1;
+        return idMaker.getUnvalidID();
     }
 
     // 获取新ID并插入映射
     QWriteLocker locker(&mapLock);
     fileID newId = generateNewId();
-    if (newId < 0) {
-        qWarning() << "Failed to generate valid file ID";
-        return -1;  // 文件会自动关闭
-    }
-
     opendFiles.insert(newId, fileRes);
-    qDebug() << "File opened successfully:" << canonicalPath << "ID:" << newId;
+    qDebug() << "File opened successfully:" << canonicalPath << newId.toString();
 
     return newId;
 }
@@ -199,12 +239,12 @@ bool LocalFileService::delFile(fileID id)
 
 fileID LocalFileService::generateNewId()
 {
-    return ++count;
+    return idMaker.generateID();
 }
 
 bool LocalFileService::isValidFileId(fileID id) const
 {
-    return id > 0;
+    return id.isValid();
 }
 
 int LocalFileService::getOpenFileCount() const

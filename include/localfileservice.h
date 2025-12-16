@@ -25,13 +25,16 @@ private:
     QMap<fileID, file_ptr> opendFiles;
     mutable QReadWriteLock mapLock;  // 保护opendFiles的访问
     
+
+    IDMaker idMaker;
 public:
     explicit LocalFileService();
     virtual ~LocalFileService();
      
     // 实现接口方法
-    fileID creatFile(QString path, bool withOpen) override;
-    bool renameFile(fileID id) override;
+    fileID justGenerateID() override;
+    bool creatFile(QString path) override;
+    bool swapFile(fileID id1, fileID id2, bool file2CanBeNull = false) override;
     virtual bool haveFile(fileID id) const override;
     virtual fileID openFile(const QString& path) override;
     virtual bool closeFile(fileID id) override;
