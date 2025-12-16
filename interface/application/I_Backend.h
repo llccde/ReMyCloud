@@ -1,5 +1,5 @@
-#ifndef __I_BACEND_H__
-#define __I_BACEND_H__
+#ifndef __I_BACKEND_H__
+#define __I_BACKEND_H__
 #include "I_AsyncLuncher.h"
 #include "QWeakPointer"
 #include "QSharedPointer"
@@ -10,8 +10,7 @@ public:
     virtual ~UIData() = default;
     virtual void initialize();
 };
-class I_Backend : QObject{
-    Q_OBJECT
+class I_Backend{
 protected:
     QSharedPointer<UIData> uiData;
     QArrayDataPointer<I_AsyncLuncher> asyncLuncher;
@@ -20,4 +19,4 @@ public:
 
 };
 
-#endif // __I_BACEND_H__
+#endif // __I_BACKEND_H__

@@ -14,7 +14,7 @@ include_directories(./include/application)
 include_directories(./interface/service)
 include_directories(./interface/application)
 include_directories(./interface)
-
+include_directories(./classForTest/include)
 qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(appReMyCloud
@@ -24,7 +24,11 @@ qt_add_executable(appReMyCloud
 qt_add_qml_module(appReMyCloud
     URI ReMyCloud
     QML_FILES
-        Main.qml
+        qml/Main.qml
+        QML_FILES qml/navItem.qml
+        QML_FILES qml/navBar.qml
+        QML_FILES qml/FileList.qml
+
 )
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
