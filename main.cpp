@@ -1,12 +1,30 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
-#include <vector>
-#include "Backend.h"
+#include <qlogging.h>
+#include <qqmlapplicationengine.h>
+#include "I_QmlAdapter.h"
+#include "Singletons.h"
+void registerQmlTypes(){
+    
+}
+void registerQmlSingletons(){
+    qmlRegisterSingletonInstance<I_QmlAdapter>("RMC",1,0,
+        "MainAdapter",
+        Singletons::Instance()->getQmlAdapterInstance().data());
+}
+void initSingletons(){
+    if(Singletons::Instance().isNull()){
+        Singletons::init();
+        qWarning() << "Singletons does not initialized.";
+    }
+}
+
 int main(int argc, char *argv[])
 {
-
+    Singletons::init();
+    registerQmlTypes();
+    registerQmlSingletons();
     QGuiApplication app(argc, argv);
-
     QQmlApplicationEngine engine;
     QObject::connect(
         &engine,

@@ -1,12 +1,14 @@
 #ifndef SERVICEMANAGER_H
 #define SERVICEMANAGER_H
-#include "I_LocalFileService.h"
-#include "I_CloudFileService.h"
-#include "I_CloudFileManager.h"
-#include "I_FileMapping.h"
-#include "I_AppAndDataConfig.h"
-#include "I_ReadmeToHtml.h"
-#include "I_ReadmeHighlight.h"
+#include <memory>
+class I_LocalFileService;
+class I_CloudFileService;
+class I_CloudFileManager;
+class I_FileMapping;
+class I_AppAndDataConfig;
+class I_ReadmeToHtml;
+class I_ReadmeHighlight;
+
 class ServiceManager{
 public:
     std::shared_ptr<I_LocalFileService> localFileService = nullptr;

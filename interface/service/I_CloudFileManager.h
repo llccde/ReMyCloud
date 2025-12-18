@@ -4,7 +4,7 @@
 #include "QVector"
 #include <memory>
 #include <QString>
-#include "I_CloudFileService.h"
+class I_CloudFileService;
 struct historyItem{
     using historyID = int;
     historyID id;

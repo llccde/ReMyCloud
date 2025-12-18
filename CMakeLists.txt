@@ -14,11 +14,17 @@ include_directories(./include/application)
 include_directories(./interface/service)
 include_directories(./interface/application)
 include_directories(./interface)
+include_directories(./interface/adapter)
 include_directories(./classForTest/include)
+
 qt_standard_project_setup(REQUIRES 6.8)
 
 qt_add_executable(appReMyCloud
     main.cpp
+    src/Singletons.cpp
+    interface/adapter/I_QmlAdapter.h
+    classForTest/include/T_QmlAdapter.h
+
 )
 
 qt_add_qml_module(appReMyCloud

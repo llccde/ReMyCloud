@@ -2,7 +2,7 @@
 #define __FILEMANAGER_H__
 
 #include "I_CloudFileManager.h"
-class FileManager : public I_CloudFileManager
+class CloudFileManager : public I_CloudFileManager
 {
     virtual bool existOnServer(const FileEntity file) override;
     virtual QVector<FileEntity> getAllFilesFromServer() override;
