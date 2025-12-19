@@ -4,6 +4,7 @@
 #include <qqmlapplicationengine.h>
 #include "I_QmlAdapter.h"
 #include "Singletons.h"
+#include "Inject.h"
 void registerQmlTypes(){
     
 }
@@ -22,6 +23,12 @@ void initSingletons(){
 int main(int argc, char *argv[])
 {
     Singletons::init();
+    Inject inject;
+    
+    inject.setSingletons(Singletons::Instance());
+    inject.DoInject();
+
+
     registerQmlTypes();
     registerQmlSingletons();
     QGuiApplication app(argc, argv);

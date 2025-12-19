@@ -7,6 +7,7 @@ void FileMapping::initMappingsFromConfig(){
     if(!configLoaderPtr){
         return;
     }
+    
     auto config = configLoaderPtr->loadConfig();
 
     mappings.clear();

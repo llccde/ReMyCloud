@@ -3,9 +3,32 @@
 #include <memory>
 #include "QString"
 #include "Checkable.h"
+#include "Qvector"
+#include "CloudFileID.h"
+#include "QWeakPointer"
 class I_LocalFileService;
 class I_CloudFileManager;
 class I_DataConfigLoader;
+class I_CloudFileService;
+
+struct historyItem{
+    using historyID = int;
+    historyID id;
+    QString timestamp;
+    QString description;
+};
+class FileEntity
+{
+    public:
+        
+
+        FileEntity();
+        ~FileEntity();
+        QString fileName;
+        QString description;
+        CloudFileID fileIdentifier;
+        QVector<historyItem> historyList;
+};
 //文件映射接口
 //负责管理与记录本地文件与云端文件的映射关系,以及提供安全的映射变更操作.
 class RMCRelation{

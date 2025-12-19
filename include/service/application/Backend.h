@@ -1,5 +1,5 @@
-#ifndef BACKEND_H
-#define BACKEND_H
+#ifndef __BACKEND_H__
+#define __BACKEND_H__
 
 #include "I_Backend.h"
 #include "QSharedPointer"
@@ -30,4 +30,4 @@ private:
     // Add any private members as needed
 };
 
-#endif // BACKEND_H
+#endif // __BACKEND_H__

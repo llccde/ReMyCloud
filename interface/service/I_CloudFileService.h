@@ -2,7 +2,8 @@
 #define __I_CLOUDLFILESERVICE_H__
 #include "QString"
 #include "QVector"
-
+#include "QJsonObject"
+#include <qjsonobject.h>
 class I_CloudFileService
 {
     protected:
@@ -24,6 +25,9 @@ class I_CloudFileService
         const QString downloadHistoryFilePath = "/getHistoryFile";
 public:
     virtual ~I_CloudFileService();
+    virtual QJsonObject getAllFiles()=0;
+    virtual QJsonObject login(const QString username,const QString password)=0;
+    virtual QJsonObject uploadFile(const QString content,const QString CloudID )=0; 
 };
 
 #endif // __I_CLOUDLFILESERVICE_H__
