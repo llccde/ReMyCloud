@@ -7,7 +7,7 @@ class I_AsyncLuncher
 {
 public:
     virtual void launchAsyncTask(const std::function<void()>& task) = 0;
-    virtual ~I_AsyncLuncher() = default;
+    inline ~I_AsyncLuncher(){};
 };
 
 #endif // __I_ASYNCLUNCHER_H__

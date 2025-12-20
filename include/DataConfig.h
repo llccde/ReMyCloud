@@ -2,6 +2,8 @@
 #define __CONFIGANDDATA_H__
 #include "QString"
 #include "QVector"
+#include "QJsonDocument"
+#include <qjsondocument.h>
 struct DataConfig{
     QString dataDirectory;
     
@@ -19,5 +21,7 @@ struct DataConfig{
         QString theName;
     };
     QVector<RMCRelationRaw> relations;
+    QJsonDocument rawD;
+    QString rawS;
 };
 #endif // __CONFIGANDDATA_H__

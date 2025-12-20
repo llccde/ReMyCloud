@@ -1,4 +1,5 @@
 #include "Backend.h"
+#include "CloudFileID.h"
 
 Backend::Backend() {
     // Empty constructor
@@ -8,29 +9,29 @@ Backend::~Backend() {
     // Empty destructor
 }
 
-void Backend::saveCloudFileFully(CloudFileID id) {
+void Backend::saveCloudFileFully(RMCFileID id) {
     // Empty implementation
 }
 
-void Backend::saveCloudOnlyLocal(CloudFileID id) {
+void Backend::saveCloudOnlyLocal(RMCFileID id) {
     // Empty implementation
 }
 
-void Backend::writeCloudFile(CloudFileID id, QString content) {
+void Backend::writeCloudFile(RMCFileID id, QString content) {
     // Empty implementation
 }
 
-QString Backend::readCloudFileOnBuffer(CloudFileID id) {
+QString Backend::readCloudFileOnBuffer(RMCFileID id) {
     // Empty implementation
     return QString();
 }
 
-MdHighLight Backend::getCloudHighLight(CloudFileID id) {
+MdHighLight Backend::getCloudHighLight(RMCFileID id) {
     // Empty implementation
     return MdHighLight();
 }
 
-MdHtml Backend::getPreview(CloudFileID id) {
+MdHtml Backend::getPreview(RMCFileID id) {
     // Empty implementation
     return MdHtml();
 }

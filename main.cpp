@@ -1,10 +1,15 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <qdebug.h>
 #include <qlogging.h>
 #include <qqmlapplicationengine.h>
 #include "I_QmlAdapter.h"
 #include "Singletons.h"
 #include "Inject.h"
+#include "I_Backend.h"
+#include "DataConfig.h"
+#include "I_ServiceManager.h"
+#include "I_DataConfigLoader.h"
 void registerQmlTypes(){
     
 }
@@ -27,6 +32,7 @@ int main(int argc, char *argv[])
     
     inject.setSingletons(Singletons::Instance());
     inject.DoInject();
+    qDebug()<<Singletons::Instance()->getBackend()->getServiceManager()->getDataConfigLoader()->loadConfig()->rawS;
 
 
     registerQmlTypes();

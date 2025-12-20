@@ -1,5 +1,5 @@
-#ifndef __BACKEND_H__
-#define __BACKEND_H__
+#ifndef BACKEND_H
+#define BACKEND_H
 
 #include "I_Backend.h"
 #include "QSharedPointer"
@@ -19,15 +19,15 @@ public:
     virtual ~Backend() override;
 
     // Implement pure virtual methods from I_Backend
-    void saveCloudFileFully(CloudFileID id) override;
-    void saveCloudOnlyLocal(CloudFileID id) override;
-    void writeCloudFile(CloudFileID id, QString content) override;
-    QString readCloudFileOnBuffer(CloudFileID id) override;
-    MdHighLight getCloudHighLight(CloudFileID id) override;
-    MdHtml getPreview(CloudFileID id) override;
+    void saveCloudFileFully(RMCFileID id) override;
+    void saveCloudOnlyLocal(RMCFileID id) override;
+    void writeCloudFile(RMCFileID id, QString content) override;
+    QString readCloudFileOnBuffer(RMCFileID id) override;
+    MdHighLight getCloudHighLight(RMCFileID id) override;
+    MdHtml getPreview(RMCFileID id) override;
 
 private:
     // Add any private members as needed
 };
 
-#endif // __BACKEND_H__
+#endif // BACKEND_H

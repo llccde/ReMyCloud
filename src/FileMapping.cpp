@@ -12,7 +12,7 @@ void FileMapping::initMappingsFromConfig(){
 
     mappings.clear();
     for(const auto& relationRaw:config->relations){
-        RMCRelation relation(relationRaw.localPath,relationRaw.cloudPath);
+        RMCRelation relation;
         relation.theName = relationRaw.theName;
         mappings.append(relation);
     }

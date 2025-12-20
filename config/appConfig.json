@@ -1,0 +1,11 @@
+{
+    "RMCFiles":[
+        {
+            "localPath":"E:/qt/ReMyCloud/config/a.txt",
+            "cloudId":"C1"
+        },{
+            "localPath":"E:/qt/ReMyCloud/config/b.txt",
+            "cloudId":"C2"
+        }
+    ]
+}
