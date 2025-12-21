@@ -5,6 +5,7 @@
 #include <_mingw_stat64.h>
 #include <qcontainerfwd.h>
 #include <qmutex.h>
+#include "BaseService.h"
 #include "QMutex"
 #include "FileID.h"
 // 文件ID类型定义
@@ -29,7 +30,7 @@ public:
  * 
  * 该接口定义了本地文件操作的基本功能，包括打开、关闭、读取、写入和删除文件等操作。
  */
-class I_LocalFileService
+class I_LocalFileService:public BaeService
 {
 public:
     virtual ~I_LocalFileService() = default;

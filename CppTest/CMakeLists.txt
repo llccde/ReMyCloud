@@ -20,7 +20,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 add_executable(CppTestMain tst_cpptestmain.cpp
     ${CppTestMain_MOC_SRCS}
-    ../src/LocalFileService.cpp
+    ../src/service/LocalFileService.cpp
     src/LFS_test.cpp
     include/LFS_test.h
 )

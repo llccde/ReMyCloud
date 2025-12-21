@@ -10,6 +10,7 @@ protected:
     
 public:
     virtual std::shared_ptr<DataConfig> loadConfig() = 0;
+    
     ~I_DataConfigLoader() = default;
 };
 

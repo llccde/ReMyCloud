@@ -1,8 +1,11 @@
 #include <QGuiApplication>
 #include <QQmlApplicationEngine>
+#include <qcontainerfwd.h>
 #include <qdebug.h>
 #include <qlogging.h>
 #include <qqmlapplicationengine.h>
+#include <qreadwritelock.h>
+#include "CloudFileID.h"
 #include "I_QmlAdapter.h"
 #include "Singletons.h"
 #include "Inject.h"
@@ -10,6 +13,11 @@
 #include "DataConfig.h"
 #include "I_ServiceManager.h"
 #include "I_DataConfigLoader.h"
+#include "CloudFileID.h"
+QReadWriteLock RMCRuntimeFileID::lock = QReadWriteLock();
+QString RMCRuntimeFileID::lastTime = "";
+int RMCRuntimeFileID::countInSameTime = 0;
+
 void registerQmlTypes(){
     
 }
@@ -32,7 +40,7 @@ int main(int argc, char *argv[])
     
     inject.setSingletons(Singletons::Instance());
     inject.DoInject();
-    qDebug()<<Singletons::Instance()->getBackend()->getServiceManager()->getDataConfigLoader()->loadConfig()->rawS;
+    qDebug()<<Singletons::Instance()->getBackend()->getServiceManager()->getDataConfigLoader()->loadConfig()->rawO["RMCFiles"][0]["localPath"].toString();
 
 
     registerQmlTypes();

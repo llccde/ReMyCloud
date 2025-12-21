@@ -27,8 +27,12 @@ struct fileID {
     }
     inline fileID():id(-1){
     }
-    [[deprecated("Only use on test")]]
-    static fileID fromLongLong(long long int value) {
+    static inline fileID unValid(){
+        fileID id;
+        id.id = -1;
+        return id;
+    }
+    static inline fileID fromLongLong(long long int value) {
         fileID fid;
         fid.id = value;
         return fid;

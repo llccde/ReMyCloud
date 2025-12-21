@@ -4,7 +4,7 @@
 class AsyncLauncher:public I_AsyncLuncher{
     public:
         inline void launchAsyncTask(const std::function<void ()> &task) override{
-
+            task();
         };
 };
 

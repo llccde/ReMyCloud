@@ -2,7 +2,6 @@
 #define SERVICEMANAGER_H
 #include <memory>
 #include <stdexcept>
-
 class I_LocalFileService;
 class I_CloudFileService;
 class I_FileMapping;
@@ -10,6 +9,7 @@ class I_AppAndDataConfig;
 class I_ReadmeToHtml;
 class I_ReadmeHighlight;
 class I_DataConfigLoader;
+class I_AsyncLuncher;
 class I_ServiceManager{
 protected:
     std::shared_ptr<I_LocalFileService> localFileService = nullptr;
@@ -19,10 +19,21 @@ protected:
     std::shared_ptr<I_ReadmeToHtml> readmeToHtml = nullptr;
     std::shared_ptr<I_ReadmeHighlight> readmeHighlight = nullptr;
     std::shared_ptr<I_DataConfigLoader> dataConfigLoader = nullptr;
-
+    std::shared_ptr<I_AsyncLuncher> asyncLuncher = nullptr;
 
 public:
-
+    inline std::shared_ptr<I_AsyncLuncher> getAsyncLuncher() const {
+        if (!asyncLuncher) {
+            throw std::runtime_error("AsyncLuncher is null");
+        }
+        return asyncLuncher;
+    }
+    inline void setAsyncLauncher(std::shared_ptr<I_AsyncLuncher> al) {
+        if (!al) {
+            throw std::invalid_argument("AsyncLuncher cannot be null");
+        }
+        this->asyncLuncher = al;
+    };
     inline std::shared_ptr<I_LocalFileService> getLocalFileService() const {
         if (!localFileService) {
             throw std::runtime_error("LocalFileService is null");

@@ -11,12 +11,10 @@
 #include "MdHighLight.h"
 #include "MdHTML.h"
 #include "Checkable.h"
-class I_AsyncLuncher;
 class I_ServiceManager;
 class I_Backend :public Checkable{
 protected:
-    std::shared_ptr<I_AsyncLuncher> asyncLuncher;
-    std::shared_ptr<I_ServiceManager> serviceManager;
+    std::shared_ptr<I_ServiceManager> serviceManager = nullptr;
 
 public:
     inline ~I_Backend() = default;
@@ -24,22 +22,15 @@ public:
 
 
 
-    virtual void saveCloudFileFully(RMCFileID id) = 0;
-    virtual void saveCloudOnlyLocal(RMCFileID id) = 0;
-    virtual void writeCloudFile(RMCFileID id,QString content) = 0;
-    virtual QString readCloudFileOnBuffer(RMCFileID id) = 0;
-    virtual MdHighLight getCloudHighLight(RMCFileID id) = 0;
-    virtual MdHtml getPreview(RMCFileID) = 0;
+    virtual void saveCloudFileFully(RMCRuntimeFileID id) = 0;
+    virtual void saveOnlyLocal(RMCRuntimeFileID id) = 0;
+    virtual RMCRuntimeFileID loadFileFromLocal(QString path) = 0;
+    virtual void writeCloudFileBuffer(RMCRuntimeFileID id,QString content) = 0;
+    virtual QString readCloudFileOnBuffer(RMCRuntimeFileID id) = 0;
+    virtual MdHighLight getCloudHighLight(RMCRuntimeFileID id) = 0;
+    virtual MdHtml getPreview(RMCRuntimeFileID) = 0;
 
 
-
-
-    inline std::shared_ptr<I_AsyncLuncher> getAsyncLuncher() const {
-        if (!asyncLuncher) {
-            throw std::runtime_error("AsyncLuncher is null");
-        }
-        return asyncLuncher;
-    }
 
     inline std::shared_ptr<I_ServiceManager> getServiceManager() const {
         if (!serviceManager) {
@@ -47,12 +38,7 @@ public:
         }
         return serviceManager;
     }
-    inline void setAsyncLauncher(std::shared_ptr<I_AsyncLuncher> al) {
-        if (!al) {
-            throw std::invalid_argument("AsyncLuncher cannot be null");
-        }
-        this->asyncLuncher = al;
-    };
+
     inline void setServiceManager(std::shared_ptr<I_ServiceManager> sm) {
         if (!sm) {
             throw std::invalid_argument("ServiceManager cannot be null");
@@ -61,12 +47,7 @@ public:
     }
 
     inline bool checkOK() override{
-        if(asyncLuncher&&serviceManager){
-            return true;
-        }else {
-            error("backend not fully init");
-            return false;
-        }
+        return serviceManager.get()!=nullptr;
     }
 };
 
